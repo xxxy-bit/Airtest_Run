@@ -1,5 +1,5 @@
 '''
-Version:0.1
+Version:v0.2
 author:xy
 '''
 
@@ -31,7 +31,15 @@ def __wr_erro():
 # 实例化窗口
 master = tkinter.Tk()
 master.title()
-master.geometry('970x900')
+
+# 窗口居中
+pc_width = master.winfo_screenwidth()
+pc_height = master.winfo_screenheight()
+master_width = 970
+master_height = 900
+x = (pc_width-master_width) / 2
+y = (pc_height-master_height) /2
+master.geometry('%dx%d+%d+%d' %(master_width, master_height, x, y))
 
 # 创建画布导入图片
 canvas = tkinter.Canvas(master, height=685, width=970)
@@ -50,8 +58,8 @@ def creat_report():
     os.startfile(rel_path+r'\testCase_run\re.bat')
 bt_cr_report = tkinter.Button(master, text='生成报告', command=creat_report).place(x=300, y=730)
 
-# 创建报告文件夹
-dir_name = rel_path+r'\testCase_report'
+# 创建报告目录
+cr_report_dir_name = rel_path+r'\testCase_report'
 def cr_report_dir(dir):
     try:
         os.mkdir(dir)
@@ -66,16 +74,24 @@ def cr_report_dir(dir):
     except:
         __wr_erro()
         tkinter.messagebox.showerror(title='错误', message='创建文件夹失败，请联系管理员')
-bt_cr_report_dir = tkinter.Button(master, 
-text='创建报告文件夹', command=lambda : cr_report_dir(dir_name)).place(x=400, y=730)
+bt_cr_report_dir = tkinter.Button(master, text='创建报告目录', command=lambda : cr_report_dir(cr_report_dir_name)).place(x=300, y=770)
 
-# 打开报告文件夹
+# 打开报告目录
 def op_report_dir():
     os.startfile(rel_path+r'\testCase_report')
-bt_op_report = tkinter.Button(master, text='打开报告文件夹', command=op_report_dir).pack()
+bt_op_report = tkinter.Button(master, text='打开报告目录', command=op_report_dir).place(x=300, y=810)
+
+# 清空报告目录
+del_report_dir_name = rel_path+r'\testCase_report'
+def del_report_dir(dir):
+    import shutil
+    shutil.rmtree(dir)
+    os.mkdir(dir)
+    tkinter.messagebox.showinfo(title='', message='清空完成')
+bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(del_report_dir_name)).place(x=450, y=770)
 
 # 退出
-bt_exit = tkinter.Button(master, text='退出', command=exit).pack()
+bt_exit = tkinter.Button(master, text='退出', command=exit).place(x=300, y=850)
 
 # 主窗口循环显示
 master.mainloop()

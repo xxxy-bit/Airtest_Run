@@ -2,4 +2,8 @@ Traceback (most recent call last):
   File "g:/git/src/main.py", line 52, in cr_report_dir
     os.mkdir(dir)
 FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
-2020-09-08 11:38:51.233017-------------------------
+2020-09-08 11:38:51.233017-------------------------Traceback (most recent call last):
+  File "g:/git/src/main.py", line 65, in cr_report_dir
+    os.mkdir(dir)
+FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
+2020-09-08 16:55:49.590000-------------------------
