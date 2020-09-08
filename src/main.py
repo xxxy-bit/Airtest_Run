@@ -1,9 +1,13 @@
+'''
+Version:0.1
+author:xy
+'''
+
 import sys, os
 rel_path = os.path.abspath('.')
 sys.path.append(rel_path)
 
 import tkinter, tkinter.messagebox
-from util.FileTool import FileTool
 from datetime import datetime
 
 time_now_msg = datetime.now()
@@ -27,7 +31,7 @@ def __wr_erro():
 # 实例化窗口
 master = tkinter.Tk()
 master.title()
-master.geometry('1080x900')
+master.geometry('970x900')
 
 # 创建画布导入图片
 canvas = tkinter.Canvas(master, height=685, width=970)
@@ -38,13 +42,13 @@ canvas.pack()
 
 # 运行用例
 def op_testCase():
-    os.startfile(rel_path+r'\testCase\1.txt')
-bt_op_testCase = tkinter.Button(master, text='运行用例', command=op_testCase).pack()
+    os.startfile(rel_path+r'\testCase_run\go.bat')
+bt_op_testCase = tkinter.Button(master, text='运行用例', command=op_testCase).place(x=300, y=690)
 
 # 生成报告
 def creat_report():
-    os.startfile(rel_path+r'\testCase\1.txt')
-bt_cr_report = tkinter.Button(master, text='生成报告', command=creat_report).pack()
+    os.startfile(rel_path+r'\testCase_run\re.bat')
+bt_cr_report = tkinter.Button(master, text='生成报告', command=creat_report).place(x=300, y=730)
 
 # 创建报告文件夹
 dir_name = rel_path+r'\testCase_report'
@@ -63,7 +67,7 @@ def cr_report_dir(dir):
         __wr_erro()
         tkinter.messagebox.showerror(title='错误', message='创建文件夹失败，请联系管理员')
 bt_cr_report_dir = tkinter.Button(master, 
-text='创建报告文件夹', command=lambda : cr_report_dir(dir_name)).pack()
+text='创建报告文件夹', command=lambda : cr_report_dir(dir_name)).place(x=400, y=730)
 
 # 打开报告文件夹
 def op_report_dir():
