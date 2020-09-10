@@ -20,17 +20,19 @@ def __wr_erro():
     # erro_path = r'g:\git\log\{}_erro.txt'.format(time_now)
     erro_path = rel_path+r'\log\{}_erro.txt'.format(time_now)
     if os.path.exists(erro_path):
+        # 错误日志已创建
         with open(erro_path,'a', encoding='utf-8') as f:
             f.write(erro)
             f.write('\r'+str(time_now_msg)+'\r'+'-------------------------\r')
     else:
+        # 错误日志未创建
         with open(erro_path,'w', encoding='utf-8') as f:
             f.write(erro)
             f.write('\r'+str(time_now_msg)+'\r'+'-------------------------\r')
 
 # 实例化窗口
 master = tkinter.Tk()
-master.title()
+master.title('我老婆天下第一！')
 
 # 窗口居中
 pc_width = master.winfo_screenwidth()
@@ -89,6 +91,11 @@ def del_report_dir(dir):
     os.mkdir(dir)
     tkinter.messagebox.showinfo(title='', message='清空完成')
 bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(del_report_dir_name)).place(x=450, y=770)
+
+# 重新生成用例运行文件
+def reCr_testCase_run():
+    pass
+bt_reCr_testCase_run = tkinter.Button(master, text='生成用例Run', command=lambda : reCr_testCase_run()).place(x=450, y=690)
 
 # 退出
 bt_exit = tkinter.Button(master, text='退出', command=exit).place(x=300, y=850)
