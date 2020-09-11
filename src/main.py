@@ -32,7 +32,7 @@ def __wr_erro():
 
 # 实例化窗口
 master = tkinter.Tk()
-master.title('我老婆天下第一！')
+master.title('大家好，这是我老婆')
 
 # 窗口居中
 pc_width = master.winfo_screenwidth()
@@ -92,10 +92,44 @@ def del_report_dir(dir):
     tkinter.messagebox.showinfo(title='', message='清空完成')
 bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(del_report_dir_name)).place(x=450, y=770)
 
+# 用例文件夹
+case_path_dir = os.path.abspath(r'.\test_dir')
+# 报告文件夹
+report_path_dir = os.path.abspath(r'.\test_report')
 # 重新生成用例运行文件
-def reCr_testCase_run():
-    pass
-bt_reCr_testCase_run = tkinter.Button(master, text='生成用例Run', command=lambda : reCr_testCase_run()).place(x=450, y=690)
+def reCr_testCase_run(case_path_dir, report_path_dir):
+    # 遍历获取用例文件夹
+    files = []
+    for a, b, c in os.walk(case_path_dir):
+        files.append(str(a))
+    run_text = []
+    for i in files:
+        # 生成报告文件夹名称
+        report_name = str(i[len(case_path_dir)+1:-4:])
+        if(report_name != ''):
+            run_text.append(str(r'airtest run "{}" --device Android://127.0.0.1:5037/YLSKL7Z9HET47TJB --log {}\{}'.format(i, report_path_dir, report_name)))
+    # 生成用例运行文件
+    with open(case_path_dir+r'\testCase.bat', 'w', encoding='utf-8') as f:
+        for i in run_text:
+            f.write(i + '\n')
+bt_reCr_testCase_run = tkinter.Button(master, text='生成用例Run', command=lambda : reCr_testCase_run(case_path_dir, report_path_dir)).place(x=450, y=690)
+
+# 生成用例报告文件
+def reCr_testRepo_run(case_path_dir, report_path_dir):
+    files = []
+    for a, b, c in os.walk(case_path_dir):
+        files.append(str(a))
+    repo_text = []
+    for i in files:
+        # 生成报告文件夹名称
+        report_name = str(i[len(case_path_dir)+1:-4:])
+        if(report_name != ''):
+            repo_text.append(str(r'airtest report "{}" --log_root {}\{} --outfile {}\{}\log.html --lang zh'.format(i, report_path_dir, report_name, report_path_dir, report_name)))
+    # 生成用例运行文件
+    with open(case_path_dir+r'\testRepo.bat', 'w', encoding='utf-8') as f:
+        for i in repo_text:
+            f.write(i + '\n')
+bt_reCr_testRepo_run = tkinter.Button(master, text='生成报告Run', command=lambda : reCr_testRepo_run(case_path_dir, report_path_dir)).place(x=450, y=730)
 
 # 退出
 bt_exit = tkinter.Button(master, text='退出', command=exit).place(x=300, y=850)
