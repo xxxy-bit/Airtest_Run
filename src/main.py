@@ -3,7 +3,7 @@ Version: 1.0
 Author: xxxy
 '''
 
-import sys, os
+import sys, os, time
 # 根目录
 rel_path = os.path.abspath('.')
 sys.path.append(rel_path)
@@ -118,7 +118,6 @@ bt_cr_report = tkinter.Button(master, text='4.生成报告', command=creat_repor
 # 打开报告
 log_arr = []
 def op_report():
-    import time
     for dir_path, dir_name, files in os.walk(report_path_dir):
         log_arr.append(dir_path)
     if (len(log_arr) > 1):
@@ -139,15 +138,13 @@ def del_report_dir(dir):
     import shutil
     try:
         shutil.rmtree(dir)
+        time.sleep(1)
         os.mkdir(dir)
         tkinter.messagebox.showinfo(message='清空完成')
     except FileNotFoundError:
         __wr_erro()
         os.mkdir(dir)
         tkinter.messagebox.showinfo(message='清空完成')
-    except PermissionError:
-        __wr_erro()
-        tkinter.messagebox.showerror(message='未知错误，请重新点击按钮')
     except Exception :
         __wr_erro()
         tkinter.messagebox.showerror(message='发生错误，请重新点击按钮')
