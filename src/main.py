@@ -15,11 +15,14 @@ time_now_msg = datetime.now()
 time_now = time_now_msg.strftime("%Y{y}%m{m}%d").format(y='-', m='-')
 
 # 用例目录
-case_path_dir = os.path.abspath(r'.\testCase')
+# case_path_dir = os.path.abspath(r'.\testCase')
+case_path_dir = rel_path+r'\testCase'
 # 报告目录
-report_path_dir = os.path.abspath(r'.\testCase_report')
+# report_path_dir = os.path.abspath(r'.\testCase_report')
+report_path_dir = rel_path+r'\testCase_report'
 # 生成用例与报告bat目录
-caseRun_path_dir = os.path.abspath(r'.\testCase_run')
+# caseRun_path_dir = os.path.abspath(r'.\testCase_run')
+caseRun_path_dir = rel_path+r'\testCase_run'
 
 # 异常写入日志
 def __wr_erro():
@@ -118,9 +121,12 @@ def op_report():
     import time
     for dir_path, dir_name, files in os.walk(report_path_dir):
         log_arr.append(dir_path)
-    for i in range(1, len(log_arr)):
-        os.startfile(log_arr[i]+r'\log.html')
-        time.sleep(2)
+    if (len(log_arr) > 1):
+        for i in range(1, len(log_arr)):
+            os.startfile(log_arr[i]+r'\log.html')
+            time.sleep(2)
+    else:
+        tkinter.messagebox.showerror(message='文件不存在，请生成报告')
 bt_op_report = tkinter.Button(master, text='5.打开报告', command=op_report).place(x=450, y=770)
 
 # 打开报告目录
@@ -138,11 +144,13 @@ def del_report_dir(dir):
     except FileNotFoundError:
         __wr_erro()
         os.mkdir(dir)
+        tkinter.messagebox.showinfo(message='清空完成')
     except PermissionError:
         __wr_erro()
         tkinter.messagebox.showerror(message='未知错误，请重新点击按钮')
-    except :
+    except Exception :
         __wr_erro()
+        tkinter.messagebox.showerror(message='发生错误，请重新点击按钮')
 bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(report_path_dir)).place(x=600, y=770)
 
 # 退出
