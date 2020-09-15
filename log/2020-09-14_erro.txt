@@ -1,27 +1,0 @@
-Traceback (most recent call last):
-  File "g:/git/src/main.py", line 118, in cr_report_dir
-    os.mkdir(dir)
-FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
-2020-09-14 10:25:28.226007-------------------------Traceback (most recent call last):
-  File "g:/git/src/main.py", line 118, in cr_report_dir
-    os.mkdir(dir)
-FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
-2020-09-14 10:32:00.348009-------------------------Traceback (most recent call last):
-  File "g:/git/src/main.py", line 118, in cr_report_dir
-    os.mkdir(dir)
-FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
-2020-09-14 10:32:16.042209-------------------------Traceback (most recent call last):
-  File "g:/git/src/main.py", line 117, in cr_report_dir
-    os.mkdir(dir)
-FileExistsError: [WinError 183] 当文件已存在时，无法创建该文件。: 'G:\\git\\testCase_report'
-2020-09-14 10:35:50.652009-------------------------Traceback (most recent call last):
-  File "g:/git/src/main.py", line 135, in del_report_dir
-    shutil.rmtree(dir)
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\shutil.py", line 500, in rmtree
-    return _rmtree_unsafe(path, onerror)
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\shutil.py", line 382, in _rmtree_unsafe
-    onerror(os.listdir, path, sys.exc_info())
-  File "C:\Users\Administrator\AppData\Local\Programs\Python\Python36\lib\shutil.py", line 380, in _rmtree_unsafe
-    names = os.listdir(path)
-FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'G:\\git\\testCase_report'
-2020-09-14 14:56:09.056000-------------------------
