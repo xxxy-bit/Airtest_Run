@@ -1,6 +1,6 @@
 '''
-Version: 1.0
-Author: xxxy
+Version:v0.2
+author:xy
 '''
 
 import sys, os
@@ -14,17 +14,18 @@ from datetime import datetime
 time_now_msg = datetime.now()
 time_now = time_now_msg.strftime("%Y{y}%m{m}%d").format(y='-', m='-')
 
-# 用例目录
+# 用例文件夹
 case_path_dir = os.path.abspath(r'.\testCase')
-# 报告目录
+# 报告文件夹
 report_path_dir = os.path.abspath(r'.\testCase_report')
-# 生成用例与报告bat目录
+# 用例与报告运行文件夹
 caseRun_path_dir = os.path.abspath(r'.\testCase_run')
 
-# 异常写入日志
 def __wr_erro():
     import traceback
+    # 写入异常日志
     erro = traceback.format_exc()
+    # erro_path = r'g:\git\log\{}_erro.txt'.format(time_now)
     erro_path = rel_path+r'\log\{}_erro.txt'.format(time_now)
     if os.path.exists(erro_path):
         # 错误日志已创建
@@ -58,11 +59,11 @@ image = canvas.create_image(485, 0, anchor='n', image=image_file)
 canvas.pack()
 
 # 生成用例Run
-def cr_testCase_run(case_path_dir, report_path_dir):
+def reCr_testCase_run(case_path_dir, report_path_dir):
     # 遍历获取用例文件夹
     files = []
-    for dir_path, dir_name, files_name in os.walk(case_path_dir):
-        files.append(str(dir_path))
+    for a, b, c in os.walk(case_path_dir):
+        files.append(str(a))
     run_text = []
     for i in files:
         # 生成报告文件夹名称
@@ -73,20 +74,17 @@ def cr_testCase_run(case_path_dir, report_path_dir):
     with open(caseRun_path_dir+r'\testCase.bat', 'w', encoding='utf-8') as f:
         for i in run_text:
             f.write(i + '\n')
-        f.close()
-    tkinter.messagebox.showinfo(message='生成完成')
-bt_cr_testCase_run = tkinter.Button(master, text='1.生成用例bat', command=lambda : cr_testCase_run(case_path_dir, report_path_dir)).place(x=300, y=690)
+bt_reCr_testCase_run = tkinter.Button(master, text='1.生成用例bat', command=lambda : reCr_testCase_run(case_path_dir, report_path_dir)).place(x=180, y=690)
 
 # 运行用例
 def op_testCase():
-    os.startfile(caseRun_path_dir+r'\testCase.bat')
-    tkinter.messagebox.showinfo(message='请等待用例运行完成，期间切勿做其他操作')
-bt_op_testCase = tkinter.Button(master, text='2.运行用例', command=op_testCase).place(x=450, y=690)
+    os.startfile(rel_path+r'\testCase_run\go.bat')
+bt_op_testCase = tkinter.Button(master, text='2.运行用例', command=op_testCase).place(x=330, y=690)
 
 # 打开用例目录
 def op_testCase_dir():
     os.startfile(case_path_dir)
-bt_op_testCase_dir = tkinter.Button(master,text='打开用例目录', command=op_testCase_dir).place(x=600, y=690)
+bt_op_testCase_dir = tkinter.Button(master,text='打开用例目录', command=op_testCase_dir).place(x=480, y=690)
 
 # 生成报告Run
 def reCr_testRepo_run(case_path_dir, report_path_dir):
@@ -99,54 +97,51 @@ def reCr_testRepo_run(case_path_dir, report_path_dir):
         report_name = str(i[len(case_path_dir)+1:-4:])
         if(report_name != ''):
             repo_text.append(str(r'airtest report "{}" --log_root {}\{} --outfile {}\{}\log.html --lang zh'.format(i, report_path_dir, report_name, report_path_dir, report_name)))
-    # 生成报告bat文件
+    # 生成用例运行文件
     with open(caseRun_path_dir+r'\testRepo.bat', 'w', encoding='utf-8') as f:
         for i in repo_text:
             f.write(i + '\n')
-        f.close()
-    tkinter.messagebox.showinfo(message='生成完成')
-bt_reCr_testRepo_run = tkinter.Button(master, text='3.生成报告bat', command=lambda : reCr_testRepo_run(case_path_dir, report_path_dir)).place(x=300, y=730)
+bt_reCr_testRepo_run = tkinter.Button(master, text='3.生成报告bat', command=lambda : reCr_testRepo_run(case_path_dir, report_path_dir)).place(x=180, y=730)
 
 # 生成报告
 def creat_report():
-    os.startfile(caseRun_path_dir+r'\testRepo.bat')
-bt_cr_report = tkinter.Button(master, text='4.生成报告', command=creat_report).place(x=450, y=730)
-
-# 打开报告
-log_arr = []
-def op_report():
-    import time
-    for dir_path, dir_name, files in os.walk(report_path_dir):
-        log_arr.append(dir_path)
-    for i in range(1, len(log_arr)):
-        os.startfile(log_arr[i]+r'\log.html')
-        time.sleep(2)
-bt_op_report = tkinter.Button(master, text='5.打开报告', command=op_report).place(x=450, y=770)
+    os.startfile(caseRun_path_dir+r'\re.bat')
+bt_cr_report = tkinter.Button(master, text='4.生成报告', command=creat_report).place(x=330, y=730)
 
 # 打开报告目录
 def op_report_dir():
     os.startfile(report_path_dir)
-bt_op_report = tkinter.Button(master, text='打开报告目录', command=op_report_dir).place(x=600, y=730)
+bt_op_report = tkinter.Button(master, text='打开报告目录', command=op_report_dir).place(x=480, y=730)
 
 # 清空报告目录
 def del_report_dir(dir):
     import shutil
+    shutil.rmtree(dir)
+    os.mkdir(dir)
+    tkinter.messagebox.showinfo(title='', message='清空完成')
+bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(report_path_dir)).place(x=630, y=730)
+
+'''
+# 创建报告目录
+def cr_report_dir(dir):
     try:
-        shutil.rmtree(dir)
         os.mkdir(dir)
-        tkinter.messagebox.showinfo(message='清空完成')
+        tkinter.messagebox.showinfo(title='', message='创建成功')
+    except FileExistsError:
+        __wr_erro()
+        tkinter.messagebox.showerror(title='错误', message='文件夹已存在，无法重复创建')
     except FileNotFoundError:
+        # 目录不存在，创建多级目录
+        os.makedirs(dir_path+time_now)
+        tkinter.messagebox.showinfo(title='', message='创建成功')
+    except:
         __wr_erro()
-        os.mkdir(dir)
-    except PermissionError:
-        __wr_erro()
-        tkinter.messagebox.showerror(message='未知错误，请重新点击按钮')
-    except :
-        __wr_erro()
-bt_del_report_dir = tkinter.Button(master, text='清空报告目录', command=lambda : del_report_dir(report_path_dir)).place(x=600, y=770)
+        tkinter.messagebox.showerror(title='错误', message='创建文件夹失败，请联系管理员')
+bt_cr_report_dir = tkinter.Button(master, text='创建报告目录', command=lambda : cr_report_dir(report_path_dir)).place(x=300, y=770)
+'''
 
 # 退出
-bt_exit = tkinter.Button(master, text='---退出程序---', command=exit).place(x=300, y=770)
+bt_exit = tkinter.Button(master, text='退出', command=exit).place(x=180, y=770)
 
 # 主窗口循环显示
 master.mainloop()

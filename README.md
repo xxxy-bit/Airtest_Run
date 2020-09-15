@@ -1,2 +1,9 @@
-# Airtest_tk
-使用Python+Airtest+tkinter整合UI自动化脚本在可视化界面，运行更方便
+# Airtest_Run
+####一键运行Airtest用例小工具
+
+1、请把Airtest用例存放在testCase文件夹
+2、运行src/main.py，根据按钮上的12345运行即可
+
+####目前可能存在的问题：
+1、如果用例中存在poco语句，不知能否正常运行
+2、本程序编写环境为Python3.6.8，若3.7或3.8环境下运行不确保没问题
